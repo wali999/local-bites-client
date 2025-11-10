@@ -5,6 +5,7 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import RootLayout from './Layout/RootLayout.jsx';
 import Home from './pages/Home.jsx';
+import AllReviews from './pages/AllReviews.jsx';
 
 
 const router = createBrowserRouter([
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
         Component: Home,
         loader: () => fetch('/herosliderdata.json'),
       },
+      {
+        path: 'allReviews',
+        Component: AllReviews,
+        loader: () => fetch('http://localhost:3000/allReviews')
+      }
     ]
   },
 ]);
