@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "image": "https://images.unsplash.com/photo-1600891964093-4316c288032e?auto=format&fit=crop&w=1200&q=80",
+        "title": "Discover Local Flavors",
+        "subtitle": "Explore authentic dishes from nearby restaurants with LocalBites."
+    },
+    {
+        "id": 2,
+        "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+        "title": "Your City’s Best Eats",
+        "subtitle": "Uncover hidden gems and must-try spots recommended by locals."
+    },
+    {
+        "id": 3,
+        "image": "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=1200&q=80",
+        "title": "Taste. Review. Share.",
+        "subtitle": "Join the LocalBites community and share your food experiences."
+    },
+    {
+        "id": 4,
+        "image": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=80",
+        "title": "Fresh Plates Near You",
+        "subtitle": "From street food to fine dining — discover what your area’s cooking."
+    },
+    {
+        "id": 5,
+        "image": "https://images.unsplash.com/photo-1546069901-eacef0df6022?auto=format&fit=crop&w=1200&q=80",
+        "title": "Where Foodies Meet",
+        "subtitle": "Connect with local food lovers who share your taste and passion."
+    },
+    {
+        "id": 6,
+        "image": "https://images.unsplash.com/photo-1498575207490-3e4e71712b64?auto=format&fit=crop&w=1200&q=80",
+        "title": "Dine Local. Feel Global.",
+        "subtitle": "Discover new cuisines right around the corner with LocalBites."
+    }
+]
