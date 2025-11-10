@@ -6,6 +6,7 @@ import { RouterProvider } from "react-router/dom";
 import RootLayout from './Layout/RootLayout.jsx';
 import Home from './pages/Home.jsx';
 import AllReviews from './pages/AllReviews.jsx';
+import TopReviews from './components/TopReviews/TopReviews.jsx';
 
 
 const router = createBrowserRouter([
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
         path: 'allReviews',
         Component: AllReviews,
         loader: () => fetch('http://localhost:3000/allReviews')
-      }
+      },
     ]
   },
 ]);

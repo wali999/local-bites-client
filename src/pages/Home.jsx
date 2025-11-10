@@ -1,5 +1,6 @@
 import React from 'react';
 import HeroSlider from '../components/HeroSlider/HeroSlider';
+import TopReviews from '../components/TopReviews/TopReviews';
 
 const Home = () => {
     return (
@@ -8,7 +9,7 @@ const Home = () => {
             <HeroSlider></HeroSlider>
 
             {/* Top Reviews */}
-
+            <TopReviews></TopReviews>
         </div>
     );
 };
