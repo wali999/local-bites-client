@@ -1,7 +1,12 @@
 import { FaStar, FaMapMarkerAlt, FaUser } from "react-icons/fa";
+import { Link } from "react-router";
 
 const FoodCard = ({ review }) => {
-    const { food_name, photo, restaurant_name, restaurant_location, reviewer_name, rating } = review;
+    const { _id, food_name, photo, restaurant_name, restaurant_location, reviewer_name, rating } = review;
+
+    const handleTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     return (
         <div className="max-w-sm bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -34,9 +39,13 @@ const FoodCard = ({ review }) => {
                     </div>
                 </div>
 
-                <button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-medium py-2 rounded-xl transition-colors">
-                    View Details
-                </button>
+
+                <Link onClick={handleTop} to={`/foodCardDetails/${_id}`}>
+                    <button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-medium py-2 rounded-xl transition-colors">
+                        View Details
+                    </button>
+                </Link>
+
             </div>
         </div>
     );

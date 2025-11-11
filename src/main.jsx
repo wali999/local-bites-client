@@ -7,6 +7,8 @@ import RootLayout from './Layout/RootLayout.jsx';
 import Home from './pages/Home.jsx';
 import AllReviews from './pages/AllReviews.jsx';
 import TopReviews from './components/TopReviews/TopReviews.jsx';
+import FoodCardDetails from './components/FoodCardDetails/FoodCardDetails.jsx';
+import AuthProvider from './context/AuthProvider.jsx';
 
 
 const router = createBrowserRouter([
@@ -24,12 +26,19 @@ const router = createBrowserRouter([
         Component: AllReviews,
         loader: () => fetch('http://localhost:3000/allReviews')
       },
+      {
+        path: 'foodCardDetails/:id',
+        Component: FoodCardDetails,
+        loader: () => fetch('http://localhost:3000/allReviews')
+      }
     ]
   },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <AuthProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </AuthProvider>
   </StrictMode>,
 )
