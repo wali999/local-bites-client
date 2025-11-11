@@ -1,8 +1,22 @@
-import React from 'react';
-import { NavLink } from 'react-router';
+import React, { use } from 'react';
+import { Link, NavLink } from 'react-router';
 import logo from '../../assets/logo.png'
+import { AuthContext } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
+    const { user, signOutUser } = use(AuthContext);
+
+    const handleSignOut = () => {
+        signOutUser()
+            .then(() => {
+                toast('You logged out successfully');
+            })
+            .catch((error) => {
+                toast(error.message);
+            })
+    }
+
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/allReviews'>All Reviews</NavLink></li>
@@ -30,7 +44,35 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn bg-green-600 hover:bg-green-700 text-white">Login</a>
+                {/* <Link to='/register' className="btn bg-green-600 hover:bg-green-700 text-white">Login</Link> */}
+                {user && (
+                    <div >
+                        <img
+                            className="w-12 h-12 rounded-full border border-gray-400"
+                            src={user.photoURL}
+                            alt="User Avatar"
+                        />
+                    </div>
+                )}
+
+                {user ? (
+                    <button
+                        onClick={handleSignOut}
+                        className="btn bg-white text-[#a61e4d] border-none px-6 py-2 font-semibold hover:bg-gray-100"
+                    >
+                        Logout
+                    </button>
+                ) : (
+
+                    <Link
+                        to="/login"
+                        className="btn bg-white text-[#1c7ed6] border-none px-6 py-2 font-semibold hover:bg-gray-100"
+                    >
+                        Login
+                    </Link>
+
+
+                )}
             </div>
         </div>
     );

@@ -9,6 +9,7 @@ import AllReviews from './pages/AllReviews.jsx';
 import TopReviews from './components/TopReviews/TopReviews.jsx';
 import FoodCardDetails from './components/FoodCardDetails/FoodCardDetails.jsx';
 import AuthProvider from './context/AuthProvider.jsx';
+import Register from './components/Register/Register.jsx';
 
 
 const router = createBrowserRouter([
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
         path: 'foodCardDetails/:id',
         Component: FoodCardDetails,
         loader: () => fetch('http://localhost:3000/allReviews')
+      },
+      {
+        path: 'register',
+        Component: Register
       }
     ]
   },
