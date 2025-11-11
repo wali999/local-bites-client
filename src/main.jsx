@@ -10,6 +10,7 @@ import TopReviews from './components/TopReviews/TopReviews.jsx';
 import FoodCardDetails from './components/FoodCardDetails/FoodCardDetails.jsx';
 import AuthProvider from './context/AuthProvider.jsx';
 import Register from './components/Register/Register.jsx';
+import Login from './components/Login/Login.jsx';
 
 
 const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: 'register',
         Component: Register
+      },
+      {
+        path: 'login',
+        Component: Login
       }
     ]
   },
