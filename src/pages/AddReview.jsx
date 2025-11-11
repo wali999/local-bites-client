@@ -80,7 +80,7 @@ const AddReview = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-50 p-4">
+        <div className="flex justify-center items-center bg-gray-50 p-4">
             <div className="card bg-white shadow-lg rounded-2xl w-full max-w-lg p-6">
                 <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
                     Add Your Food Review

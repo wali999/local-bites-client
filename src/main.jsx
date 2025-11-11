@@ -13,6 +13,7 @@ import Register from './components/Register/Register.jsx';
 import Login from './components/Login/Login.jsx';
 import PrivateRoute from './context/PrivateRoute.jsx';
 import AddReview from './pages/AddReview.jsx';
+import Error404 from './components/Error/Error404.jsx';
 
 
 const router = createBrowserRouter([
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/*',
-        element: <h2>Error404</h2>
+        element: <Error404></Error404>
       }
     ]
   },
