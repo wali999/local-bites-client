@@ -1,5 +1,6 @@
 import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import Swal from 'sweetalert2';
 
 const MyReviews = () => {
     const { user } = use(AuthContext);
@@ -17,9 +18,46 @@ const MyReviews = () => {
     }, [user?.email])
 
 
+    const handleDeleteReviews = (_id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#43A047",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                fetch(`http://localhost:3000/myReviews/${_id}`, {
+                    method: 'DELETE',
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your review has been deleted.",
+                                icon: "success"
+                            });
+
+                            //remove from ui
+                            const remainingReview = myReviews.filter(myReview => myReview._id !== _id);
+                            setMyReviews(remainingReview);
+                        }
+                    })
+
+
+
+            }
+        });
+    }
+
+
     return (
-        <div>
-            <h3 className='text-3xl'>My Reviews: {myReviews.length}</h3>
+        <div className='my-7'>
+            <h3 className='text-2xl text-center font-bold'>My Reviews: {myReviews.length}</h3>
 
             <div className="overflow-x-auto">
                 <table className="table">
@@ -74,8 +112,8 @@ const MyReviews = () => {
 
                                     {/* 5th column */}
                                     <th className='flex justify-start items-center py-6'>
-                                        <button className="btn btn-outline btn-xs mr-4">Update</button>
-                                        <button className="btn btn-outline btn-xs">Delete</button>
+                                        <button className="btn btn-outline btn-xs mr-4">Edit</button>
+                                        <button onClick={() => handleDeleteReviews(myReview._id)} className="btn btn-outline btn-xs">Delete</button>
                                     </th>
                                 </tr>
                             )
