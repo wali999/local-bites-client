@@ -51,7 +51,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <img className="w-9" src={logo} alt="LocalBites Logo" />
-                <a className="btn btn-ghost text-xl font-bold">LocalBites</a>
+                <Link className=" text-xl font-bold text-green-900 ml-2">LocalBites</Link>
             </div>
 
             <div className="navbar-center hidden lg:flex">
