@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import { useLoaderData } from 'react-router';
 import FoodCard from '../FoodCard/FoodCard';
 import { NavLink } from 'react-router';
+import TopFoodCard from '../TopFoodCard/TopFoodCard';
 
 const TopReviews = () => {
     const [topReviews, setTopReviews] = useState([]);
@@ -24,7 +25,7 @@ const TopReviews = () => {
             <p className='text-center mb-5'>Explore Top Reviews Food.</p>
             <div className='grid justify-around gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                 {
-                    topReviews.map(review => <FoodCard key={review._id} review={review}></FoodCard>)
+                    topReviews.map(review => <TopFoodCard key={review._id} review={review}></TopFoodCard>)
                 }
             </div>
             <div className="mt-6 flex justify-center ">

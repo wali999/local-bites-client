@@ -1,12 +1,62 @@
-import { FaStar, FaMapMarkerAlt, FaUser } from "react-icons/fa";
+import { useContext, useEffect, useState } from "react";
+import { FaStar, FaMapMarkerAlt, FaUser, FaHeart } from "react-icons/fa";
 import { Link } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 const FoodCard = ({ review }) => {
+    const { user } = useContext(AuthContext);
+    const [isFavorite, setIsFavorite] = useState(false);
+
     const { _id, food_name, photo, restaurant_name, restaurant_location, reviewer_name, rating } = review;
 
+    useEffect(() => {
+        const checkIfFavorited = async () => {
+            if (!user?.email) return;
+
+            try {
+                const res = await fetch(`http://localhost:3000/favorites?email=${user.email}`);
+                const favorites = await res.json();
+
+                const exists = favorites.some((fav) => fav._id === _id);
+                if (exists) setIsFavorite(true);
+            } catch (err) {
+                console.error("Error fetching favorites:", err);
+            }
+        };
+        checkIfFavorited();
+    }, [user?.email, _id]);
+
+
+
     const handleTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
+
+    const handleFavorite = async () => {
+        if (isFavorite) return;
+
+        try {
+            const response = await fetch("http://localhost:3000/favorites", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ ...review, userEmail: user?.email }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setIsFavorite(true);
+                toast.success("Added to favorites ❤️");
+            } else {
+                toast.error(data.message || "Failed to add favorite");
+            }
+        } catch (error) {
+            console.error("Error adding favorite:", error);
+            toast.error("Something went wrong!");
+        }
+    };
+
 
     return (
         <div className="max-w-sm bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -17,10 +67,21 @@ const FoodCard = ({ review }) => {
             />
 
             <div className="p-5 space-y-3">
-                <h2 className="text-xl font-semibold text-gray-800">
-                    {food_name}
-                </h2>
-                {/* <p className="text-gray-600 text-sm">{food_description}</p> */}
+                <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold text-gray-800">{food_name}</h2>
+
+                    <button
+                        onClick={handleFavorite}
+                        disabled={isFavorite}
+                        className={`text-xl focus:outline-none ml-2 ${isFavorite ? "cursor-not-allowed" : "cursor-pointer"
+                            }`}
+                    >
+                        <FaHeart
+                            className={`text-2xl transition-colors duration-300 ${isFavorite ? "text-red-500" : "text-gray-300 hover:text-red-400"
+                                }`}
+                        />
+                    </button>
+                </div>
 
                 <div className="flex items-center text-sm text-gray-500 mt-2">
                     <FaMapMarkerAlt className="text-red-500 mr-1" />
@@ -39,13 +100,11 @@ const FoodCard = ({ review }) => {
                     </div>
                 </div>
 
-
                 <Link onClick={handleTop} to={`/foodCardDetails/${_id}`}>
                     <button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-medium py-2 rounded-xl transition-colors">
                         View Details
                     </button>
                 </Link>
-
             </div>
         </div>
     );

@@ -16,6 +16,7 @@ import AddReview from './pages/AddReview.jsx';
 import Error404 from './components/Error/Error404.jsx';
 import MyReviews from './pages/MyReviews.jsx';
 import EditReview from './pages/EditReview.jsx';
+import MyFavorite from './pages/MyFavorite.jsx';
 
 
 const router = createBrowserRouter([
@@ -64,6 +65,12 @@ const router = createBrowserRouter([
           <EditReview></EditReview>
         </PrivateRoute>,
         loader: ({ params }) => fetch(`http://localhost:3000/allReviews/${params.id}`)
+      },
+      {
+        path: 'myFavorite',
+        element: <PrivateRoute>
+          <MyFavorite></MyFavorite>
+        </PrivateRoute>
       },
 
       {

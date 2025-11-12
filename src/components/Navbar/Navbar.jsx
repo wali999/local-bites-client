@@ -100,6 +100,15 @@ const Navbar = () => {
                                     </Link>
                                 </li>
                                 <li>
+                                    <Link
+                                        to="/myFavorite"
+                                        className="block px-4 py-2 hover:bg-gray-100 rounded-md"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        My Favorite
+                                    </Link>
+                                </li>
+                                <li>
                                     <button
                                         onClick={() => {
                                             handleSignOut();
