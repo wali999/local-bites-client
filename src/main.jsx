@@ -15,6 +15,7 @@ import PrivateRoute from './context/PrivateRoute.jsx';
 import AddReview from './pages/AddReview.jsx';
 import Error404 from './components/Error/Error404.jsx';
 import MyReviews from './pages/MyReviews.jsx';
+import EditReview from './pages/EditReview.jsx';
 
 
 const router = createBrowserRouter([
@@ -57,6 +58,14 @@ const router = createBrowserRouter([
           <MyReviews></MyReviews>
         </PrivateRoute>
       },
+      {
+        path: 'editReview/:id',
+        element: <PrivateRoute>
+          <EditReview></EditReview>
+        </PrivateRoute>,
+        loader: ({ params }) => fetch(`http://localhost:3000/allReviews/${params.id}`)
+      },
+
       {
         path: '/*',
         element: <Error404></Error404>

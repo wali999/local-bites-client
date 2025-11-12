@@ -1,6 +1,7 @@
 import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 const MyReviews = () => {
     const { user } = use(AuthContext);
@@ -112,7 +113,7 @@ const MyReviews = () => {
 
                                     {/* 5th column */}
                                     <th className='flex justify-start items-center py-6'>
-                                        <button className="btn btn-outline btn-xs mr-4">Edit</button>
+                                        <button className="btn btn-outline btn-xs mr-4"><Link to={`/editReview/${myReview._id}`}>Edit</Link></button>
                                         <button onClick={() => handleDeleteReviews(myReview._id)} className="btn btn-outline btn-xs">Delete</button>
                                     </th>
                                 </tr>
