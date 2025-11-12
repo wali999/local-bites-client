@@ -47,13 +47,11 @@ const Register = () => {
                 updateUser({ displayName: name, photoURL: photo })
                     .then(() => {
                         setUser({ ...user, displayName: name, photoURL: photo });
-                        navigate('/');
                     })
                     .catch((error) => {
-                        toast(error);
-                        setUser(user);
+                        toast.error(error);
                     });
-                setUser(user);
+                navigate('/');
             })
             .catch((error) => {
                 const errorCode = error.code;

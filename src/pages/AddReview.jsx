@@ -27,14 +27,15 @@ const AddReview = () => {
         e.preventDefault();
 
         const formData = {
-            food_name: e.target.name.value,
+            food_name: e.target.food_name.value,
             food_description: e.target.food_description.value,
             photo: e.target.photo.value,
             restaurant_name: e.target.restaurant_name.value,
             restaurant_location: e.target.restaurant_location.value,
             reviewer_name: user.displayName,
-            rating: e.target.rating.value,
-            // created_at: new Date(),
+            email: user.email,
+            rating: parseFloat(e.target.rating.value),
+            created_at: new Date(),
         }
 
         fetch('http://localhost:3000/addReview', {

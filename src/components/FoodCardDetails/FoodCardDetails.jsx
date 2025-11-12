@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { FaStar, FaMapMarkerAlt, FaUser, FaUtensils } from "react-icons/fa";
-import { useLoaderData, useNavigate, useParams } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 
 const FoodCardDetails = () => {
     const data = useLoaderData();
-    const { id } = useParams();
+    const review = data.result
+    // const { id } = useParams();
     const navigate = useNavigate();
 
-    const [review, setReview] = useState({});
+    // const [review, setReview] = useState({});
 
-    useEffect(() => {
-        const revieDetails = data.find((singleReview) => singleReview._id == id);
-        setReview(revieDetails);
-    }, [data, id]);
+    // useEffect(() => {
+    //     const revieDetails = data.find((singleReview) => singleReview._id == id);
+    //     setReview(revieDetails);
+    // }, [data, id]);
 
     const handleBack = () => {
         navigate(-1);

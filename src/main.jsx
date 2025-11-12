@@ -14,6 +14,7 @@ import Login from './components/Login/Login.jsx';
 import PrivateRoute from './context/PrivateRoute.jsx';
 import AddReview from './pages/AddReview.jsx';
 import Error404 from './components/Error/Error404.jsx';
+import MyReviews from './pages/MyReviews.jsx';
 
 
 const router = createBrowserRouter([
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: 'foodCardDetails/:id',
         Component: FoodCardDetails,
-        loader: () => fetch('http://localhost:3000/allReviews')
+        loader: ({ params }) => fetch(`http://localhost:3000/allReviews/${params.id}`)
       },
       {
         path: 'register',
@@ -48,6 +49,12 @@ const router = createBrowserRouter([
         path: 'addReview',
         element: <PrivateRoute>
           <AddReview></AddReview>
+        </PrivateRoute>
+      },
+      {
+        path: 'myReviews',
+        element: <PrivateRoute>
+          <MyReviews></MyReviews>
         </PrivateRoute>
       },
       {
