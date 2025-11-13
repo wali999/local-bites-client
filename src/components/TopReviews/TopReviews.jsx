@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import TopFoodCard from "../TopFoodCard/TopFoodCard";
+import { toast } from "react-toastify";
 
 const TopReviews = () => {
     const [topReviews, setTopReviews] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/topReviews")
+        fetch("https://local-bites-server.vercel.app/topReviews")
             .then((res) => res.json())
             .then((data) => setTopReviews(data))
-            .catch((err) => console.error("Failed to load top reviews:", err));
+            .catch((error) => {
+                toast.error("Failed to load top reviews. Please try again later.");
+            });
     }, []);
 
     const handleShowAll = () => {

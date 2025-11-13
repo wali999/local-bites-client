@@ -19,21 +19,6 @@ const EditReview = () => {
 
         }
 
-        fetch(`http://localhost:3000/editReviews/${review._id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
         const { food_name, photo, restaurant_name, rating } = review;
 
         if (!food_name || !photo || !restaurant_name || !rating) {
@@ -47,7 +32,26 @@ const EditReview = () => {
             return;
         }
 
-        toast.success("Review updated successfully!");
+        fetch(`https://local-bites-server.vercel.app/editReviews/${review._id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0 || data.success) {
+                    toast.success("Review updated successfully!");
+                } else {
+                    toast.info("No changes were made.");
+                }
+            })
+            .catch((error) => {
+                toast.error("Failed to update review. Please try again.", error);
+            });
+
+
 
     };
 
@@ -146,7 +150,7 @@ const EditReview = () => {
                     </button>
                 </form>
             </div>
-            <ToastContainer position="top-center" autoClose={2000} />
+            <ToastContainer position="top-right" autoClose={2000} />
         </div>
     );
 };

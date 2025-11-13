@@ -7,10 +7,12 @@ const MyFavorite = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:3000/favorites?email=${user.email}`)
+            fetch(`https://local-bites-server.vercel.app/favorites?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => setFavorites(data))
-                .catch(err => console.error("Error loading favorites:", err));
+                .catch(err => {
+                    // console.error("Error loading favorites:", err)
+                });
         }
     }, [user]);
 

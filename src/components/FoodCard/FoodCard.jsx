@@ -15,13 +15,13 @@ const FoodCard = ({ review }) => {
             if (!user?.email) return;
 
             try {
-                const res = await fetch(`http://localhost:3000/favorites?email=${user.email}`);
+                const res = await fetch(`https://local-bites-server.vercel.app/favorites?email=${user.email}`);
                 const favorites = await res.json();
 
-                const exists = favorites.some((fav) => fav._id === _id);
+                const exists = favorites.some((fav) => fav.originalId === _id);
                 if (exists) setIsFavorite(true);
             } catch (err) {
-                console.error("Error fetching favorites:", err);
+                toast.error("Error fetching favorites:", err);
             }
         };
         checkIfFavorited();
@@ -39,7 +39,7 @@ const FoodCard = ({ review }) => {
         try {
             const { _id, ...favoriteData } = review;
 
-            const response = await fetch("http://localhost:3000/favorites", {
+            const response = await fetch("https://local-bites-server.vercel.app/favorites", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ...favoriteData, originalId: _id, userEmail: user?.email }),
@@ -54,8 +54,7 @@ const FoodCard = ({ review }) => {
                 toast.error(data.message || "Failed to add favorite");
             }
         } catch (error) {
-            console.error("Error adding favorite:", error);
-            toast.error("Something went wrong!");
+            toast.error("Something went wrong!", error);
         }
     };
 

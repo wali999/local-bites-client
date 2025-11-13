@@ -9,10 +9,10 @@ const MyReviews = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:3000/myReviews?email=${user.email}`)
+            fetch(`https://local-bites-server.vercel.app/myReviews?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     setMyReviews(data);
                 })
         }
@@ -31,7 +31,7 @@ const MyReviews = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:3000/myReviews/${_id}`, {
+                fetch(`https://local-bites-server.vercel.app/myReviews/${_id}`, {
                     method: 'DELETE',
                 })
                     .then(res => res.json())

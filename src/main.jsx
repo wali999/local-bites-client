@@ -32,12 +32,12 @@ const router = createBrowserRouter([
       {
         path: 'allReviews',
         Component: AllReviews,
-        loader: () => fetch('http://localhost:3000/allReviews')
+        loader: () => fetch('https://local-bites-server.vercel.app/allReviews')
       },
       {
         path: 'foodCardDetails/:id',
         Component: FoodCardDetails,
-        loader: ({ params }) => fetch(`http://localhost:3000/allReviews/${params.id}`)
+        loader: ({ params }) => fetch(`https://local-bites-server.vercel.app/allReviews/${params.id}`)
       },
       {
         path: 'register',
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute>
           <EditReview></EditReview>
         </PrivateRoute>,
-        loader: ({ params }) => fetch(`http://localhost:3000/allReviews/${params.id}`)
+        loader: ({ params }) => fetch(`https://local-bites-server.vercel.app/allReviews/${params.id}`)
       },
       {
         path: 'myFavorite',

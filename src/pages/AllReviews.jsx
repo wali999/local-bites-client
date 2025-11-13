@@ -7,11 +7,11 @@ const AllReviews = () => {
 
     const fetchReviews = async (search = "") => {
         try {
-            const res = await fetch(`http://localhost:3000/allReviews?search=${search}`);
+            const res = await fetch(`https://local-bites-server.vercel.app/allReviews?search=${search}`);
             const data = await res.json();
             setAllReviews(data);
         } catch (error) {
-            console.error("Error fetching reviews:", error);
+            // console.error("Error fetching reviews:", error);
         }
     };
 

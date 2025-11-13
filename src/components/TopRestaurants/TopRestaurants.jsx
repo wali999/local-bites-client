@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const TopRestaurants = () => {
     const [restaurants, setRestaurants] = useState([]);
@@ -7,7 +8,9 @@ const TopRestaurants = () => {
         fetch("/toprestaurants.json")
             .then((res) => res.json())
             .then((data) => setRestaurants(data))
-            .catch((err) => console.error("Failed to load data:", err));
+            .catch(() => {
+                toast.error("Failed to load data.");
+            });
     }, []);
 
     if (!restaurants.length) return null;

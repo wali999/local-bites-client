@@ -58,7 +58,7 @@ const HeroSlider = ({ scrollToTopReviews }) => {
                                     transition={{ duration: 0.6, delay: 0.5 }}
                                     className="mt-6"
                                 >
-                                    <button onClick={scrollToTopReviews} className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all duration-300 hover:shadow-lg">
+                                    <button onClick={scrollToTopReviews} className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 hover:shadow-lg">
                                         Explore Now
                                     </button>
                                 </motion.div>

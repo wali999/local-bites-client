@@ -36,20 +36,6 @@ const AddReview = () => {
             created_at: new Date(),
         }
 
-        fetch('http://localhost:3000/addReview', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-            })
-            .catch(error => {
-                console.log(error)
-            })
 
         const { food_name, photo, restaurant_name, rating } = reviewData;
 
@@ -64,7 +50,25 @@ const AddReview = () => {
             return;
         }
 
-        toast.success("Review added successfully!");
+        fetch('https://local-bites-server.vercel.app/addReview', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId || data.success) {
+                    toast.success(" Review added successfully!");
+                } else {
+                    toast.info("Review submission did not complete. Try again!");
+                }
+            })
+            .catch((error) => {
+                toast.error("Failed to add review. Please check your connection.", error);
+            });
+
 
         // Reset form
         setReviewData({
@@ -183,7 +187,7 @@ const AddReview = () => {
                     </button>
                 </form>
             </div>
-            <ToastContainer position="top-center" autoClose={2000} />
+            <ToastContainer position="top-right" autoClose={2000} />
         </div>
     );
 };
