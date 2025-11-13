@@ -9,7 +9,7 @@ const Footer = () => {
             <footer className="footer sm:footer-horizontal bg-base-300 text-base-content p-10">
                 <aside>
                     <img src={logo} className='w-50' alt="" />
-                    <p>
+                    <p className='font-semibold'>
                         Where locals share what's worth a bite!
                     </p>
                 </aside>

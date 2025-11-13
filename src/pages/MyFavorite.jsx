@@ -16,10 +16,12 @@ const MyFavorite = () => {
 
     return (
         <div className="p-6 min-h-160">
-            <h1 className="text-2xl font-semibold mb-4">My Favorites</h1>
+            <div className='text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-2'>
+                My <span className="text-green-600">Favorite</span>
+            </div>
 
             {favorites.length === 0 ? (
-                <p>No favorites yet.</p>
+                <p className="text-center mt-10">No favorites yet.</p>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {favorites.map(item => (

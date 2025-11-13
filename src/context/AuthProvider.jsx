@@ -52,14 +52,14 @@ const AuthProvider = ({ children }) => {
         signOutUser,
         user,
         loading,
-
+        setLoading,
     }
 
 
     return (
-        <AuthContext value={authInfo}>
+        <AuthContext.Provider value={authInfo}>
             {children}
-        </AuthContext>
+        </AuthContext.Provider>
     );
 };
 

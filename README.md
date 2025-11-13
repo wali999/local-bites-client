@@ -1,16 +1,61 @@
-# React + Vite
+# Website Name
+ LocalBites-Where locals share what's worth a bite!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ # Live Link
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features of LocalBites
+Global Components
+-Navbar and Footer visible across all routes for consistent navigation and branding.
 
-## React Compiler
+Homepage
+-Hero Slider with smooth fade and autoplay transitions using Swiper.js.
+-Top Reviews section showing selected user reviews with "View Details" buttons.
+-Best Restaurants showcase highlighting top-rated restaurants.
+-About Section providing information about the website and its purpose.
+-Animations on text and elements implemented with Framer Motion.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+All Reviews Page
+-Displays all reviews submitted by users.
+-Option to mark favorites.
+-Grid layout with truncation of long descriptions for cleaner UI.
 
-## Expanding the ESLint configuration
+Private/User-Specific Routes (require authentication)
+-Add Review: Users can submit new reviews.
+-My Reviews: Shows reviews submitted by the logged-in user.
+-My Favorites: Lists the user’s favorite dishes or restaurants.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+User Authentication
+-Email/password login and registration using Firebase Authentication.
+-Google/Gmail login integration for quick access.
+
+Data Storage & Management
+-MongoDB used to store user reviews, restaurant data, and favorites.
+-Efficient fetching and updating of data through REST API endpoints.
+
+Routing & Navigation
+-Smooth client-side routing using React Router.
+-Dynamic routing for individual food review and restaurant pages.
+
+Responsive Design
+-Fully responsive layouts for mobile, tablet, and desktop devices.
+-Styled with Tailwind CSS for a modern and consistent look.
+
+Interactive UI Elements
+-Icons from React Icons for stars, locations, users, and favorites.
+-Buttons with hover effects and smooth interactions.
+-Notifications and alerts implemented using React Toastify.
+
+Animations & Effects
+-Smooth entrance and hover animations with Framer Motion.
+-Sliders and carousels enhanced with Swiper.js for better user experience.
+
+Content & Readability Enhancements
+-Truncated descriptions with ... for cleaner card layouts.
+-Detailed view pages for full content.
+
+Deployment
+-Server (API) deployed on Vercel.
+-Client (React app) deployed on Firebase Hosting.
+
+

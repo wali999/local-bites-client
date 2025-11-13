@@ -5,7 +5,6 @@ const AllReviews = () => {
     const [allReviews, setAllReviews] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
 
-
     const fetchReviews = async (search = "") => {
         try {
             const res = await fetch(`http://localhost:3000/allReviews?search=${search}`);
@@ -16,11 +15,9 @@ const AllReviews = () => {
         }
     };
 
-
     useEffect(() => {
         fetchReviews();
     }, []);
-
 
     useEffect(() => {
         const delayDebounce = setTimeout(() => {
@@ -30,36 +27,38 @@ const AllReviews = () => {
         return () => clearTimeout(delayDebounce);
     }, [searchTerm]);
 
-
     return (
-        <div className='my-7 min-h-147'>
-            <div className='text-2xl text-center font-bold mb-2'>All Reviews</div>
-            <p className='text-center mb-5'>Explore All User's Review.</p>
+        <div className='my-10 min-h-screen px-4 md:px-8 lg:px-16'>
+            <div className='text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-2'>
+                All <span className="text-green-600">Reviews</span>
+            </div>
+            <p className='text-center text-gray-600 md:text-lg mb-6'>
+                Discover reviews from food lovers across the city — find the best dishes, restaurants, and flavors at a glance!
+            </p>
 
-            {/* search option */}
-            <div className="flex justify-center mb-6 gap-2">
+            {/* Search Option */}
+            <div className="flex justify-center mb-8">
                 <input
                     type="text"
                     placeholder="Search by food name..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="input input-bordered w-64 md:w-80"
+                    className="input input-bordered w-64 md:w-96 px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
             </div>
 
-            {/* food card section */}
-            <div className="grid justify-around gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {/* Food Cards */}
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
                 {allReviews.length > 0 ? (
                     allReviews.map((review) => (
                         <FoodCard key={review._id} review={review} />
                     ))
                 ) : (
-                    <p className="text-center text-gray-500 col-span-full">
-                        No reviews found.
+                    <p className="text-center text-gray-500 col-span-full text-lg">
+                        No reviews found. Try searching for something else!
                     </p>
                 )}
             </div>
-
         </div>
     );
 };

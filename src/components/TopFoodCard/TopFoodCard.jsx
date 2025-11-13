@@ -2,7 +2,7 @@ import { FaStar, FaMapMarkerAlt, FaUser } from "react-icons/fa";
 import { Link } from "react-router";
 
 const TopFoodCard = ({ review }) => {
-    const { _id, food_name, photo, restaurant_name, restaurant_location, reviewer_name, rating } = review;
+    const { _id, food_description, food_name, photo, restaurant_name, restaurant_location, reviewer_name, rating } = review;
 
     const handleTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -16,11 +16,16 @@ const TopFoodCard = ({ review }) => {
                 className="w-full h-56 object-cover"
             />
 
-            <div className="p-5 space-y-3">
+            <div className="p-5 space-y-3 text-left">
                 <h2 className="text-xl font-semibold text-gray-800">
                     {food_name}
                 </h2>
-                {/* <p className="text-gray-600 text-sm">{food_description}</p> */}
+                <p className="text-gray-600 text-sm">
+                    {food_description.split(" ").length > 14
+                        ? `${food_description.split(" ").slice(0, 14).join(" ")}...`
+                        : food_description}
+                </p>
+
 
                 <div className="flex items-center text-sm text-gray-500 mt-2">
                     <FaMapMarkerAlt className="text-red-500 mr-1" />

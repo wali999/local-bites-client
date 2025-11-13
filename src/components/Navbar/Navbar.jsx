@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 
 const Navbar = () => {
-    const { user, signOutUser } = useContext(AuthContext);
+    const { user, loading, signOutUser } = useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -31,14 +31,14 @@ const Navbar = () => {
 
     const links = (
         <>
-            <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/allReviews">All Reviews</NavLink></li>
+            <li><NavLink to="/" className='font-semibold'>Home</NavLink></li>
+            <li><NavLink to="/allReviews" className='font-semibold'>All Reviews</NavLink></li>
         </>
     );
 
     return (
         <div className="navbar bg-base-100 shadow-sm">
-            {/*Left part  of Navbar */}
+            {/* Left*/}
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -51,17 +51,20 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <img className="w-9" src={logo} alt="LocalBites Logo" />
-                <Link className=" text-xl font-bold text-green-900 ml-2">LocalBites</Link>
+                <Link className="text-xl font-bold text-green-900 ml-2">LocalBites</Link>
             </div>
 
+            {/* Center */}
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">{links}</ul>
             </div>
 
-            {/* Right part*/}
+            {/* Right part */}
             <div className="navbar-end" ref={dropdownRef}>
-                {user ? (
-                    <div className="relative  mr-13">
+                {loading ? (
+                    <div className="w-10 h-10 rounded-full bg-gray-200 animate-pulse mr-13"></div>
+                ) : user ? (
+                    <div className="relative mr-13">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className="btn btn-ghost btn-circle avatar flex items-center justify-center"
@@ -75,7 +78,6 @@ const Navbar = () => {
                             </div>
                         </button>
 
-                        {/* Dropdown Menu */}
                         {isOpen && (
                             <ul className="absolute -right-15 mt-3 w-40 text-center bg-white shadow-lg rounded-xl p-2 z-50 border animate-fadeIn">
                                 <li className="text-center font-semibold text-gray-700 border-b pb-2">
@@ -105,7 +107,7 @@ const Navbar = () => {
                                         className="block px-4 py-2 hover:bg-gray-100 rounded-md"
                                         onClick={() => setIsOpen(false)}
                                     >
-                                        My Favorite
+                                        My Favorites
                                     </Link>
                                 </li>
                                 <li>
@@ -114,18 +116,19 @@ const Navbar = () => {
                                             handleSignOut();
                                             setIsOpen(false);
                                         }}
-                                        className="w-full text-center  px-4 py-2 text-red-600 hover:bg-gray-100 rounded-md"
+                                        className="w-full text-center px-4 py-2 text-red-600 hover:bg-gray-100 rounded-md"
                                     >
-                                        <Link to='/login'>Logout</Link>
+                                        <Link to="/login">Logout</Link>
                                     </button>
                                 </li>
                             </ul>
                         )}
                     </div>
                 ) : (
+
                     <Link
                         to="/login"
-                        className="btn bg-white text-green-700 border-none px-6 py-2 font-semibold hover:bg-gray-100"
+                        className="btn bg-green-600 hover:bg-green-700 text-white border-none px-6 py-2 font-semibold"
                     >
                         Login
                     </Link>

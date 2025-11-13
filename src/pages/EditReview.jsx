@@ -57,7 +57,7 @@ const EditReview = () => {
         <div className="flex justify-center items-center bg-gray-50 p-4">
             <div className="card bg-white shadow-lg rounded-2xl w-full max-w-lg p-6">
                 <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-                    Edit Your Food Review
+                    Edit Your <span className="text-green-600">Food Review</span>
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">

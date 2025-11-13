@@ -8,7 +8,7 @@ const FoodCard = ({ review }) => {
     const { user } = useContext(AuthContext);
     const [isFavorite, setIsFavorite] = useState(false);
 
-    const { _id, food_name, photo, restaurant_name, restaurant_location, reviewer_name, rating } = review;
+    const { _id, food_description, food_name, photo, restaurant_name, restaurant_location, reviewer_name, rating } = review;
 
     useEffect(() => {
         const checkIfFavorited = async () => {
@@ -37,10 +37,12 @@ const FoodCard = ({ review }) => {
         if (isFavorite) return;
 
         try {
+            const { _id, ...favoriteData } = review;
+
             const response = await fetch("http://localhost:3000/favorites", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ...review, userEmail: user?.email }),
+                body: JSON.stringify({ ...favoriteData, originalId: _id, userEmail: user?.email }),
             });
 
             const data = await response.json();
@@ -56,6 +58,7 @@ const FoodCard = ({ review }) => {
             toast.error("Something went wrong!");
         }
     };
+
 
 
     return (
@@ -82,6 +85,11 @@ const FoodCard = ({ review }) => {
                         />
                     </button>
                 </div>
+                <p className="text-gray-600 text-sm">
+                    {food_description.split(" ").length > 14
+                        ? `${food_description.split(" ").slice(0, 14).join(" ")}...`
+                        : food_description}
+                </p>
 
                 <div className="flex items-center text-sm text-gray-500 mt-2">
                     <FaMapMarkerAlt className="text-red-500 mr-1" />

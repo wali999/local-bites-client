@@ -16,13 +16,11 @@ const AddReview = () => {
         rating: "",
     });
 
-    // Handle input change
     const handleChange = (e) => {
         const { name, value } = e.target;
         setReviewData({ ...reviewData, [name]: value });
     };
 
-    // Submit form
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -84,7 +82,7 @@ const AddReview = () => {
         <div className="flex justify-center items-center bg-gray-50 p-4">
             <div className="card bg-white shadow-lg rounded-2xl w-full max-w-lg p-6">
                 <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-                    Add Your Food Review
+                    Add Your <span className="text-green-600">Food Review</span>
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">

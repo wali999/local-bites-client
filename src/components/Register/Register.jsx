@@ -16,7 +16,6 @@ const Register = () => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        // console.log(e.target);
         const form = e.target;
 
         const name = form.name.value;
@@ -43,7 +42,6 @@ const Register = () => {
         createUser(email, password)
             .then((result) => {
                 const user = result.user;
-                // console.log(user);
                 updateUser({ displayName: name, photoURL: photo })
                     .then(() => {
                         setUser({ ...user, displayName: name, photoURL: photo });
@@ -64,11 +62,10 @@ const Register = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(result => {
-                console.log(result);
+                toast.success(result);
                 navigate('/');
             })
             .catch(error => {
-                console.log(error);
                 toast.error(error.message);
             })
     }
@@ -76,7 +73,7 @@ const Register = () => {
     return (
         <div className='flex justify-center items-center my-20'>
             <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl py-5">
-                <h2 className='font-semibold text-2xl text-center'>Register your account</h2>
+                <h2 className='font-semibold text-2xl text-center'><span className="text-green-600">Register</span> your account</h2>
                 <form onSubmit={handleRegister} className="card-body">
                     <fieldset className="fieldset">
                         {/* Name */}

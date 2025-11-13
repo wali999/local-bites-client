@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import notfoundImg from '../../assets/404.png'
 
 const Error404 = () => {
     const navigate = useNavigate();
@@ -7,9 +8,9 @@ const Error404 = () => {
     return (
         <div className="flex flex-col justify-center items-center pt-10 pb-20 bg-gray-50 p-6 text-center">
             <img
-                src="https://img.freepik.com/premium-vector/404-error-page-found-with-donut_114341-54.jpg?semt=ais_hybrid&w=740&q=80"
+                src={notfoundImg}
                 alt="404 Not Found"
-                className="w-full max-w-xl mb-6"
+                className="w-full max-w-3xl mb-10"
             />
 
             <h1 className="text-3xl md:text-4xl font-bold text-green-800 mb-2">
@@ -21,7 +22,7 @@ const Error404 = () => {
 
             <button
                 onClick={() => navigate(-1)}
-                className="btn bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md transition-all"
+                className="btn bg-green-600 hover:bg-green-700 text-white px-6 py-2 mb-6 rounded-lg shadow-md transition-all"
             >
                 Go Back
             </button>
