@@ -6,7 +6,6 @@ import { RouterProvider } from "react-router/dom";
 import RootLayout from './Layout/RootLayout.jsx';
 import Home from './pages/Home.jsx';
 import AllReviews from './pages/AllReviews.jsx';
-import TopReviews from './components/TopReviews/TopReviews.jsx';
 import FoodCardDetails from './components/FoodCardDetails/FoodCardDetails.jsx';
 import AuthProvider from './context/AuthProvider.jsx';
 import Register from './components/Register/Register.jsx';
@@ -17,6 +16,7 @@ import Error404 from './components/Error/Error404.jsx';
 import MyReviews from './pages/MyReviews.jsx';
 import EditReview from './pages/EditReview.jsx';
 import MyFavorite from './pages/MyFavorite.jsx';
+import Loading from './components/Loading/Loading.jsx';
 
 
 const router = createBrowserRouter([
@@ -32,12 +32,14 @@ const router = createBrowserRouter([
       {
         path: 'allReviews',
         Component: AllReviews,
-        loader: () => fetch('https://local-bites-server.vercel.app/allReviews')
+        loader: () => fetch('https://local-bites-server.vercel.app/allReviews'),
+        hydrateFallbackElement: <Loading></Loading>
       },
       {
         path: 'foodCardDetails/:id',
         Component: FoodCardDetails,
-        loader: ({ params }) => fetch(`https://local-bites-server.vercel.app/allReviews/${params.id}`)
+        loader: ({ params }) => fetch(`https://local-bites-server.vercel.app/allReviews/${params.id}`),
+        hydrateFallbackElement: <Loading></Loading>
       },
       {
         path: 'register',
@@ -64,7 +66,8 @@ const router = createBrowserRouter([
         element: <PrivateRoute>
           <EditReview></EditReview>
         </PrivateRoute>,
-        loader: ({ params }) => fetch(`https://local-bites-server.vercel.app/allReviews/${params.id}`)
+        loader: ({ params }) => fetch(`https://local-bites-server.vercel.app/allReviews/${params.id}`),
+        hydrateFallbackElement: <Loading></Loading>
       },
       {
         path: 'myFavorite',

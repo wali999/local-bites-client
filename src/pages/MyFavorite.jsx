@@ -1,20 +1,33 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import Loading from "../components/Loading/Loading";
 
 const MyFavorite = () => {
     const { user } = useContext(AuthContext);
     const [favorites, setFavorites] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (user?.email) {
-            fetch(`https://local-bites-server.vercel.app/favorites?email=${user.email}`)
-                .then(res => res.json())
-                .then(data => setFavorites(data))
-                .catch(err => {
-                    // console.error("Error loading favorites:", err)
-                });
-        }
-    }, [user]);
+        const fetchFavorites = async () => {
+            if (!user?.email) return;
+            setLoading(true);
+            try {
+                const res = await fetch(`https://local-bites-server.vercel.app/favorites?email=${user.email}`);
+                const data = await res.json();
+                setFavorites(data);
+            } catch (err) {
+                console.error("Error loading favorites:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchFavorites();
+    }, [user?.email]);
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
         <div className="p-6 min-h-160">

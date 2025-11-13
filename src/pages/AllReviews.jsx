@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import FoodCard from '../components/FoodCard/FoodCard';
+import { toast } from 'react-toastify';
+import Loading from '../components/Loading/Loading';
 
 const AllReviews = () => {
     const [allReviews, setAllReviews] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [loading, setLoading] = useState(true);
 
     const fetchReviews = async (search = "") => {
         try {
+            setLoading(true);
             const res = await fetch(`https://local-bites-server.vercel.app/allReviews?search=${search}`);
             const data = await res.json();
             setAllReviews(data);
         } catch (error) {
-            // console.error("Error fetching reviews:", error);
+            toast.error("Error fetching reviews:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -48,17 +54,19 @@ const AllReviews = () => {
             </div>
 
             {/* Food Cards */}
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
-                {allReviews.length > 0 ? (
-                    allReviews.map((review) => (
+            {loading ? (
+                <Loading></Loading>
+            ) : allReviews.length > 0 ? (
+                <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+                    {allReviews.map((review) => (
                         <FoodCard key={review._id} review={review} />
-                    ))
-                ) : (
-                    <p className="text-center text-gray-500 col-span-full text-lg">
-                        No reviews found. Try searching for something else!
-                    </p>
-                )}
-            </div>
+                    ))}
+                </div>
+            ) : (
+                <p className="text-center text-gray-500 text-lg">
+                    No reviews found. Try searching for something else!
+                </p>
+            )}
         </div>
     );
 };
