@@ -1,6 +1,9 @@
 # Website Name
  LocalBites-Where locals share what's worth a bite!
 
+# Description
+Local Bites is your go-to platform for honest, detailed reviews of local foods, restaurants, and street eats. We explore nearby kitchens, hidden gems, and popular spots to bring you real experiences, authentic opinions, and mouth-watering recommendations. Whether it's a classic dish or a unique local specialty, Local Bites helps you decide where to eat next—fresh, trusted, and truly local.
+
 # Live Link
 https://local-bites-6d909.web.app/
 
@@ -54,8 +57,25 @@ https://local-bites-6d909.web.app/
 -Truncated descriptions with ... for cleaner card layouts.
 -Detailed view pages for full content.
 
+🛠️ Technologies Used
+Frontend:
+React.js
+Tailwind CSS
+DaisyUI
+Firebase Auth
+
+
+Backend:
+Node.js
+Express.js
+MongoDB
+CORS
+
 ## Deployment
 -Server (API) deployed on Vercel.
 -Client (React app) deployed on Firebase Hosting.
+
+🧑‍💻 Author
+Developed by Oali Ullah
 
 
