@@ -57,25 +57,25 @@ https://local-bites-6d909.web.app/
 -Truncated descriptions with ... for cleaner card layouts.
 -Detailed view pages for full content.
 
-🛠️ Technologies Used
-Frontend:
+# Technologies Used
+##Frontend:
 React.js
 Tailwind CSS
 DaisyUI
 Firebase Auth
 
 
-Backend:
+##Backend:
 Node.js
 Express.js
 MongoDB
 CORS
 
-## Deployment
+# Deployment
 -Server (API) deployed on Vercel.
 -Client (React app) deployed on Firebase Hosting.
 
-🧑‍💻 Author
+# Author
 Developed by Oali Ullah
 
 
