@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import FoodCard from '../components/FoodCard/FoodCard';
-import { toast } from 'react-toastify';
-import Loading from '../components/Loading/Loading';
+import { useEffect, useState } from "react";
+import FoodCard from "../components/FoodCard/FoodCard";
+import FoodCardSkeleton from "../components/FoodCard/FoodCardSkeleton";
+import { toast } from "react-toastify";
 
 const AllReviews = () => {
     const [allReviews, setAllReviews] = useState([]);
@@ -11,11 +11,13 @@ const AllReviews = () => {
     const fetchReviews = async (search = "") => {
         try {
             setLoading(true);
-            const res = await fetch(`https://local-bites-server.vercel.app/allReviews?search=${search}`);
+            const res = await fetch(
+                `https://local-bites-server.vercel.app/allReviews?search=${search}`
+            );
             const data = await res.json();
             setAllReviews(data);
         } catch (error) {
-            toast.error("Error fetching reviews:", error);
+            toast.error("Failed to fetch reviews", error);
         } finally {
             setLoading(false);
         }
@@ -34,39 +36,42 @@ const AllReviews = () => {
     }, [searchTerm]);
 
     return (
-        <div className='my-10 min-h-screen px-4 md:px-8 lg:px-16'>
-            <div className='text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-2'>
+        <div className="my-10 min-h-screen px-4 md:px-8 lg:px-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-2">
                 All <span className="text-green-600">Reviews</span>
-            </div>
-            <p className='text-center text-gray-600 md:text-lg mb-6'>
-                Discover reviews from food lovers across the city — find the best dishes, restaurants, and flavors at a glance!
+            </h2>
+
+            <p className="text-center text-gray-600 md:text-lg mb-6">
+                Discover reviews from food lovers across the city.
             </p>
 
-            {/* Search Option */}
+            {/* Search */}
             <div className="flex justify-center mb-8">
                 <input
                     type="text"
                     placeholder="Search by food name..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="input input-bordered w-64 md:w-96 px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="input input-bordered w-64 md:w-96"
                 />
             </div>
 
-            {/* Food Cards */}
-            {loading ? (
-                <Loading></Loading>
-            ) : allReviews.length > 0 ? (
-                <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
-                    {allReviews.map((review) => (
-                        <FoodCard key={review._id} review={review} />
-                    ))}
-                </div>
-            ) : (
-                <p className="text-center text-gray-500 text-lg">
-                    No reviews found. Try searching for something else!
-                </p>
-            )}
+            {/* Cards */}
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+                {loading
+                    ? Array.from({ length: 6 }).map((_, i) => (
+                        <FoodCardSkeleton key={i} />
+                    ))
+                    : allReviews.length > 0
+                        ? allReviews.map((review) => (
+                            <FoodCard key={review._id} review={review} />
+                        ))
+                        : (
+                            <p className="col-span-full text-center text-gray-500 text-lg">
+                                No reviews found.
+                            </p>
+                        )}
+            </div>
         </div>
     );
 };

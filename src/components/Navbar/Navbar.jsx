@@ -37,7 +37,7 @@ const Navbar = () => {
     );
 
     return (
-        <div className="navbar bg-base-100 shadow-sm">
+        <div className="navbar sticky top-0 z-50 pl-2 md:pl-12 bg-base-100 shadow-sm">
             {/* Left*/}
             <div className="navbar-start">
                 <div className="dropdown">
@@ -126,12 +126,14 @@ const Navbar = () => {
                     </div>
                 ) : (
 
-                    <Link
-                        to="/login"
-                        className="btn bg-green-600 hover:bg-green-700 text-white border-none rounded-xl px-8 py-2 font-semibold"
-                    >
-                        Login
-                    </Link>
+                    <div className="pr-2 md:pr-12">
+                        <Link
+                            to="/login"
+                            className="btn bg-green-600 hover:bg-green-700 text-white border-none rounded-xl px-8 py-2 font-semibold"
+                        >
+                            Login
+                        </Link>
+                    </div>
                 )}
             </div>
         </div>
