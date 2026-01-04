@@ -11,6 +11,16 @@ const Login = () => {
     const [error, setError] = useState('');
     const [show, setShow] = useState(false);
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleAutoFill = () => {
+        setEmail('fahid@gmail.com');
+        setPassword('Asd123');
+
+        toast.success('Demo credentials filled');
+    };
+
     const handleSignIn = (e) => {
         e.preventDefault();
 
@@ -19,22 +29,16 @@ const Login = () => {
         const password = form.password.value;
 
         signInUser(email, password)
-            .then(result => {
-                const user = result.user;
-                // console.log(user);
-                toast.success('Login Successfully', {
-                    position: "top-right",
-                });
-
+            .then(() => {
+                toast.success('Login Successfully');
                 setTimeout(() => {
                     navigate(location.state ? location.state : '/');
                 }, 500);
             })
             .catch((error) => {
-                const errorCode = error.code;
-                setError(errorCode);
+                setError(error.code);
                 toast.error('Login failed!');
-            })
+            });
     }
 
 
@@ -62,8 +66,10 @@ const Login = () => {
                         <input
                             type="email"
                             name='email'
-                            className="input"
+                            className="input w-full"
                             placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                         />
 
@@ -73,8 +79,10 @@ const Login = () => {
                             <input
                                 type={show ? "text" : "password"}
                                 name='password'
-                                className="input"
+                                className="input w-full"
                                 placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
                             <span
@@ -88,7 +96,22 @@ const Login = () => {
                         {
                             error && <p className='text-red-500 text-xs'>{error}</p>
                         }
-                        <button type='submit' className="btn bg-green-600 hover:bg-green-700 text-white mt-4">Login</button>
+
+
+                        <button
+                            type="button"
+                            onClick={handleAutoFill}
+                            className="btn btn-outline btn-sm mt-4"
+                        >
+                            Auto Fill Demo User
+                        </button>
+
+                        <button
+                            type='submit'
+                            className="btn bg-green-600 hover:bg-green-700 text-white mt-4"
+                        >
+                            Login
+                        </button>
 
                         <button
                             onClick={handleGoogleSignIn}
