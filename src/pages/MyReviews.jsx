@@ -58,7 +58,7 @@ const MyReviews = () => {
 
     return (
         <div className='my-7 min-h-147'>
-            <div className='text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-2'>
+            <div className='text-3xl md:text-4xl font-extrabold text-center text-base-content mb-2'>
                 My Reviews: <span className="text-green-600">{myReviews.length}</span>
             </div>
 

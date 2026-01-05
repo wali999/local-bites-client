@@ -73,7 +73,7 @@ const Register = () => {
     return (
         <div className='flex justify-center items-center my-10'>
             <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl py-5">
-                <h2 className='text-2xl text-center font-bold text-gray-800'><span className="text-green-600">Register</span> your account</h2>
+                <h2 className='text-2xl text-center font-bold text-base-content'><span className="text-green-600">Register</span> your account</h2>
                 <form onSubmit={handleRegister} className="card-body">
                     <fieldset className="fieldset">
                         {/* Name */}

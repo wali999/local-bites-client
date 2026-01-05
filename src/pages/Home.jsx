@@ -3,6 +3,8 @@ import HeroSlider from '../components/HeroSlider/HeroSlider';
 import TopReviews from '../components/TopReviews/TopReviews';
 import About from '../components/About/About';
 import TopRestaurants from '../components/TopRestaurants/TopRestaurants';
+import WhyChooseLocalBites from '../components/Home Xtra/WhyChooseLocalBites';
+import JoinCommunity from '../components/Home Xtra/JoinCommunity';
 
 const Home = () => {
     const topReviewsRef = useRef(null);
@@ -22,6 +24,12 @@ const Home = () => {
 
             {/* About */}
             <About></About>
+
+            {/* Choosing Local Bites */}
+            <WhyChooseLocalBites />
+
+            {/* Join */}
+            <JoinCommunity></JoinCommunity>
         </div>
     );
 };

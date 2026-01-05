@@ -1,10 +1,10 @@
-import React, { use, useState } from "react";
+import { useContext, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../context/AuthContext";
 
 const AddReview = () => {
-    const { user } = use(AuthContext);
+    const { user } = useContext(AuthContext);
 
     const [reviewData, setReviewData] = useState({
         food_name: "",
@@ -34,8 +34,7 @@ const AddReview = () => {
             email: user.email,
             rating: parseFloat(e.target.rating.value),
             created_at: new Date(),
-        }
-
+        };
 
         const { food_name, photo, restaurant_name, rating } = reviewData;
 
@@ -50,27 +49,23 @@ const AddReview = () => {
             return;
         }
 
-        fetch('https://local-bites-server.vercel.app/addReview', {
+        fetch("https://local-bites-server.vercel.app/addReview", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData)
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
         })
-            .then(res => res.json())
-            .then(data => {
+            .then((res) => res.json())
+            .then((data) => {
                 if (data.insertedId || data.success) {
-                    toast.success(" Review added successfully!");
+                    toast.success("Review added successfully!");
                 } else {
                     toast.info("Review submission did not complete. Try again!");
                 }
             })
-            .catch((error) => {
-                toast.error("Failed to add review. Please check your connection.", error);
+            .catch(() => {
+                toast.error("Failed to add review. Please check your connection.");
             });
 
-
-        // Reset form
         setReviewData({
             food_name: "",
             food_description: "",
@@ -83,85 +78,84 @@ const AddReview = () => {
     };
 
     return (
-        <div className="flex justify-center items-center bg-gray-50 p-4">
-            <div className="card bg-white shadow-lg rounded-2xl w-full max-w-lg p-6">
-                <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-                    Add Your <span className="text-green-600">Food Review</span>
+        <div className="flex justify-center items-start min-h-screen p-4 sm:p-6 bg-base-200 dark:bg-base-300">
+            <div className="card w-full max-w-lg bg-base-100 dark:bg-gray-800 shadow-lg dark:shadow-xl rounded-2xl p-6 sm:p-8">
+                <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 text-gray-900 dark:text-gray-100">
+                    Add Your <span className="text-green-600 dark:text-green-400">Food Review</span>
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Food Name */}
                     <div>
-                        <label className="block font-semibold mb-1">Food Name *</label>
+                        <label className="block font-semibold mb-1 text-gray-900 dark:text-gray-100">Food Name *</label>
                         <input
                             type="text"
                             name="food_name"
                             value={reviewData.food_name}
                             onChange={handleChange}
                             placeholder="Enter food name"
-                            className="input input-bordered w-full"
+                            className="input input-bordered w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                             required
                         />
                     </div>
 
                     {/* Food Description */}
                     <div>
-                        <label className="block font-semibold mb-1">Your Review in Details</label>
+                        <label className="block font-semibold mb-1 text-gray-900 dark:text-gray-100">Your Review</label>
                         <textarea
                             name="food_description"
                             value={reviewData.food_description}
                             onChange={handleChange}
                             placeholder="Describe the food..."
-                            className="textarea textarea-bordered w-full"
+                            className="textarea textarea-bordered w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                             rows={3}
-                        ></textarea>
+                        />
                     </div>
 
                     {/* Photo URL */}
                     <div>
-                        <label className="block font-semibold mb-1">Photo URL *</label>
+                        <label className="block font-semibold mb-1 text-gray-900 dark:text-gray-100">Photo URL *</label>
                         <input
                             type="url"
                             name="photo"
                             value={reviewData.photo}
                             onChange={handleChange}
                             placeholder="https://example.com/photo.jpg"
-                            className="input input-bordered w-full"
+                            className="input input-bordered w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                             required
                         />
                     </div>
 
                     {/* Restaurant Name */}
                     <div>
-                        <label className="block font-semibold mb-1">Restaurant Name *</label>
+                        <label className="block font-semibold mb-1 text-gray-900 dark:text-gray-100">Restaurant Name *</label>
                         <input
                             type="text"
                             name="restaurant_name"
                             value={reviewData.restaurant_name}
                             onChange={handleChange}
                             placeholder="Restaurant name"
-                            className="input input-bordered w-full"
+                            className="input input-bordered w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                             required
                         />
                     </div>
 
                     {/* Restaurant Location */}
                     <div>
-                        <label className="block font-semibold mb-1">Restaurant Location</label>
+                        <label className="block font-semibold mb-1 text-gray-900 dark:text-gray-100">Restaurant Location</label>
                         <input
                             type="text"
                             name="restaurant_location"
                             value={reviewData.restaurant_location}
                             onChange={handleChange}
                             placeholder="Dhanmondi, Dhaka"
-                            className="input input-bordered w-full"
+                            className="input input-bordered w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                         />
                     </div>
 
-
-                    {/* Rating  */}
+                    {/* Rating */}
                     <div>
-                        <label className="block font-semibold mb-1">
+                        <label className="block font-semibold mb-1 text-gray-900 dark:text-gray-100">
                             Rating (0.0 - 5.0) *
                         </label>
                         <input
@@ -173,7 +167,7 @@ const AddReview = () => {
                             value={reviewData.rating}
                             onChange={handleChange}
                             placeholder="4.8"
-                            className="input input-bordered w-full"
+                            className="input input-bordered w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                             required
                         />
                     </div>
@@ -181,12 +175,13 @@ const AddReview = () => {
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className="btn w-full bg-green-600 hover:bg-green-700 text-white mt-4"
+                        className="btn w-full bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 text-white mt-4 transition-colors"
                     >
                         Submit Review
                     </button>
                 </form>
             </div>
+
             <ToastContainer position="top-right" autoClose={2000} />
         </div>
     );

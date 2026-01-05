@@ -57,7 +57,7 @@ const Login = () => {
     return (
         <div className='flex justify-center items-center mt-10 mb-30 min-h-122'>
             <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl py-5">
-                <h2 className='text-2xl text-center font-bold mt-5 text-gray-800'><span className="text-green-600">Login</span> your account</h2>
+                <h2 className='text-2xl text-center font-bold mt-5 text-base-content'><span className="text-green-600">Login</span > your account</h2>
                 <form onSubmit={handleSignIn} className="card-body">
                     <fieldset className="fieldset">
 

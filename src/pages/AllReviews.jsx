@@ -102,78 +102,92 @@ const AllReviews = () => {
     const locations = [...new Set(allReviews.map(r => r.restaurant_location))];
 
     return (
+
         <div className="my-10 min-h-screen px-4 md:px-8 lg:px-16">
 
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-6">
+            {/* Heading */}
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center text-base-content mb-3">
                 All <span className="text-green-600">Reviews</span>
             </h2>
 
+            <p className="text-center text-base-content/70 mb-8">
+                Discover reviews from food lovers across the city
+            </p>
+
             {/* Search + Filters + Sort */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <div className="bg-base-100 rounded-2xl shadow-sm p-4 md:p-6 mb-10">
 
-                <input
-                    type="text"
-                    placeholder="Search by food name..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="input input-bordered w-64"
-                />
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
 
-                <select
-                    className="select select-bordered w-52"
-                    value={sortOption}
-                    onChange={(e) => {
-                        setSortOption(e.target.value);
-                        setCurrentPage(1);
-                    }}
-                >
-                    <option value="">Sort By</option>
-                    <option value="date_desc">Newest First</option>
-                    <option value="date_asc">Oldest First</option>
-                    <option value="rating_desc">Highest Rating</option>
-                    <option value="rating_asc">Lowest Rating</option>
-                </select>
+                    {/* Search */}
+                    <input
+                        type="text"
+                        placeholder="Search food..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="input input-bordered w-full"
+                    />
 
-                <select
-                    className="select select-bordered w-48"
-                    value={ratingFilter}
-                    onChange={(e) => {
-                        setRatingFilter(e.target.value);
-                        setCurrentPage(1);
-                    }}
-                >
-                    <option value="">Rating</option>
-                    <option value="4">4★ & above</option>
-                    <option value="3">3★ & above</option>
-                    <option value="2">2★ & above</option>
-                </select>
+                    {/* Sort */}
+                    <select
+                        className="select select-bordered w-full"
+                        value={sortOption}
+                        onChange={(e) => {
+                            setSortOption(e.target.value);
+                            setCurrentPage(1);
+                        }}
+                    >
+                        <option value="">Sort By</option>
+                        <option value="date_desc">Newest</option>
+                        <option value="date_asc">Oldest</option>
+                        <option value="rating_desc">Top Rated</option>
+                        <option value="rating_asc">Lowest Rated</option>
+                    </select>
 
-                <select
-                    className="select select-bordered w-48"
-                    value={dateFilter}
-                    onChange={(e) => {
-                        setDateFilter(e.target.value);
-                        setCurrentPage(1);
-                    }}
-                >
-                    <option value="">Date</option>
-                    <option value="7">Last 7 days</option>
-                    <option value="30">Last 30 days</option>
-                </select>
+                    {/* Rating */}
+                    <select
+                        className="select select-bordered w-full"
+                        value={ratingFilter}
+                        onChange={(e) => {
+                            setRatingFilter(e.target.value);
+                            setCurrentPage(1);
+                        }}
+                    >
+                        <option value="">Rating</option>
+                        <option value="4">4★ & above</option>
+                        <option value="3">3★ & above</option>
+                        <option value="2">2★ & above</option>
+                    </select>
 
-                <select
-                    className="select select-bordered w-52"
-                    value={locationFilter}
-                    onChange={(e) => {
-                        setLocationFilter(e.target.value);
-                        setCurrentPage(1);
-                    }}
-                >
-                    <option value="">Location</option>
-                    {locations.map(loc => (
-                        <option key={loc} value={loc}>{loc}</option>
-                    ))}
-                </select>
+                    {/* Date */}
+                    <select
+                        className="select select-bordered w-full"
+                        value={dateFilter}
+                        onChange={(e) => {
+                            setDateFilter(e.target.value);
+                            setCurrentPage(1);
+                        }}
+                    >
+                        <option value="">Date</option>
+                        <option value="7">Last 7 days</option>
+                        <option value="30">Last 30 days</option>
+                    </select>
+
+                    {/* Location */}
+                    <select
+                        className="select select-bordered w-full"
+                        value={locationFilter}
+                        onChange={(e) => {
+                            setLocationFilter(e.target.value);
+                            setCurrentPage(1);
+                        }}
+                    >
+                        <option value="">Location</option>
+                        {locations.map(loc => (
+                            <option key={loc} value={loc}>{loc}</option>
+                        ))}
+                    </select>
+                </div>
             </div>
 
             {/* Cards */}
@@ -187,18 +201,18 @@ const AllReviews = () => {
                             <FoodCard key={review._id} review={review} />
                         ))
                         : (
-                            <p className="col-span-full text-center text-gray-500">
+                            <p className="col-span-full text-center text-base-content/60">
                                 No reviews found.
                             </p>
                         )}
             </div>
 
-            {/* ✅ Pagination Controls */}
+            {/* Pagination */}
             {totalPages > 1 && (
-                <div className="flex justify-center mt-10 gap-2">
+                <div className="flex flex-wrap justify-center items-center gap-2 mt-12">
 
                     <button
-                        className="btn btn-sm"
+                        className="btn btn-sm btn-outline"
                         disabled={currentPage === 1}
                         onClick={() => setCurrentPage(p => p - 1)}
                     >
@@ -209,8 +223,8 @@ const AllReviews = () => {
                         <button
                             key={num}
                             className={`btn btn-sm ${currentPage === num + 1
-                                ? "btn-active btn-success"
-                                : ""
+                                ? "btn bg-green-600 text-white"
+                                : "btn-outline"
                                 }`}
                             onClick={() => setCurrentPage(num + 1)}
                         >
@@ -219,7 +233,7 @@ const AllReviews = () => {
                     ))}
 
                     <button
-                        className="btn btn-sm"
+                        className="btn btn-sm btn-outline"
                         disabled={currentPage === totalPages}
                         onClick={() => setCurrentPage(p => p + 1)}
                     >
@@ -228,6 +242,7 @@ const AllReviews = () => {
                 </div>
             )}
         </div>
+
     );
 };
 

@@ -3,25 +3,36 @@ import { Link, NavLink } from "react-router";
 import logo from "../../assets/logo.png";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { HiMenuAlt3 } from "react-icons/hi";
 
 const Navbar = () => {
     const { user, loading, signOutUser } = useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
+    const [theme, setTheme] = useState(
+        localStorage.getItem("theme") || "light"
+    );
+
+    useEffect(() => {
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme(prev => (prev === "light" ? "dark" : "light"));
+    };
+
     const handleSignOut = () => {
         signOutUser()
-            .then(() => {
-                toast("You logged out successfully");
-            })
-            .catch((error) => {
-                toast(error.message);
-            });
+            .then(() => toast.success("Logged out successfully"))
+            .catch(error => toast.error(error.message));
     };
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        const handleClickOutside = (e) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
                 setIsOpen(false);
             }
         };
@@ -31,83 +42,109 @@ const Navbar = () => {
 
     const links = (
         <>
-            <li><NavLink to="/" className='font-semibold'>Home</NavLink></li>
-            <li><NavLink to="/allReviews" className='font-semibold'>All Reviews</NavLink></li>
+            <li>
+                <NavLink to="/" className={({ isActive }) => `font-semibold ${isActive ? "text-green-600" : ""}`}>
+                    Home
+                </NavLink>
+            </li>
+
+            <li>
+                <NavLink to="/allReviews" className={({ isActive }) => `font-semibold ${isActive ? "text-green-600" : ""}`}>
+                    All Reviews
+                </NavLink>
+            </li>
+
+            {/* NEW: Add Review */}
+            {user && (
+                <li>
+                    <NavLink
+                        to="/addReview"
+                        className={({ isActive }) => `font-semibold ${isActive ? "text-green-600" : ""}`}
+                    >
+                        Add Review
+                    </NavLink>
+                </li>
+            )}
+
+            <li>
+                <NavLink to="/faq" className={({ isActive }) => `font-semibold ${isActive ? "text-green-600" : ""}`}>
+                    FAQ
+                </NavLink>
+            </li>
         </>
     );
 
+
     return (
-        <div className="navbar sticky top-0 z-50 pl-2 md:pl-12 bg-base-100 shadow-sm">
-            {/* Left*/}
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-                        </svg>
-                    </div>
-                    <ul tabIndex={-1} className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow">
+        <div className="navbar sticky top-0 z-50 bg-base-100/80 backdrop-blur shadow-sm px-3 md:px-6 lg:px-12">
+
+            {/* Left */}
+            <div className="navbar-start gap-2">
+                <img className="w-9" src={logo} alt="LocalBites Logo" />
+                <Link to="/" className="text-xl font-bold text-base-content">
+                    LocalBites
+                </Link>
+            </div>
+
+            {/* Center (Desktop) */}
+            <div className="navbar-center hidden lg:flex">
+                <ul className="menu menu-horizontal gap-1">{links}</ul>
+            </div>
+
+            {/* Right */}
+            <div className="navbar-end flex items-center gap-2" ref={dropdownRef}>
+
+                {/* Theme toggle */}
+                <button
+                    onClick={toggleTheme}
+                    className="btn btn-ghost btn-circle"
+                    aria-label="Toggle Theme"
+                >
+                    {theme === "light" ? <FaMoon /> : <FaSun />}
+                </button>
+
+                {/* Mobile Menu */}
+                <div className="dropdown dropdown-end lg:hidden">
+                    <label tabIndex={0} className="btn btn-ghost btn-circle">
+                        <HiMenuAlt3 size={22} />
+                    </label>
+                    <ul
+                        tabIndex={0}
+                        className="menu dropdown-content mt-3 p-2 shadow bg-base-100 rounded-xl w-44"
+                    >
                         {links}
                     </ul>
                 </div>
-                <img className="w-9" src={logo} alt="LocalBites Logo" />
-                <Link className="text-xl font-bold text-green-900 ml-2">LocalBites</Link>
-            </div>
 
-            {/* Center */}
-            <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">{links}</ul>
-            </div>
-
-            {/* Right part */}
-            <div className="navbar-end" ref={dropdownRef}>
+                {/* Auth Section */}
                 {loading ? (
-                    <div className="w-10 h-10 rounded-full bg-gray-200 animate-pulse mr-13"></div>
+                    <div className="w-10 h-10 rounded-full bg-base-300 animate-pulse"></div>
                 ) : user ? (
-                    <div className="relative mr-13">
+                    <div className="relative">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="btn btn-ghost btn-circle avatar flex items-center justify-center"
+                            className="btn btn-ghost btn-circle avatar"
                         >
-                            <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-300 flex items-center justify-center">
+                            <div className="w-10 h-10 rounded-full border border-base-300 overflow-hidden">
                                 <img
                                     src={user.photoURL || "https://via.placeholder.com/150"}
-                                    alt="User Avatar"
-                                    className="w-full h-full object-cover"
+                                    alt="User"
                                 />
                             </div>
                         </button>
 
                         {isOpen && (
-                            <ul className="absolute -right-15 mt-3 w-40 text-center bg-white shadow-lg rounded-xl p-2 z-50 border animate-fadeIn">
-                                <li className="text-center font-semibold text-gray-700 border-b pb-2">
+                            <ul className="absolute right-0 mt-3 w-48 bg-base-100 shadow-lg rounded-xl p-2 z-50">
+                                <li className="font-semibold text-center border-b pb-2 mb-1">
                                     {user.displayName || "User"}
                                 </li>
                                 <li>
                                     <Link
-                                        to="/addReview"
-                                        className="block px-4 py-2 hover:bg-gray-100 rounded-md"
+                                        to="/dashboard"
                                         onClick={() => setIsOpen(false)}
+                                        className="block text-center px-4 py-2 hover:bg-base-200 rounded-lg"
                                     >
-                                        Add Review
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/myReviews"
-                                        className="block px-4 py-2 hover:bg-gray-100 rounded-md"
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        My Reviews
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/myFavorite"
-                                        className="block px-4 py-2 hover:bg-gray-100 rounded-md"
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        My Favorites
+                                        Dashboard
                                     </Link>
                                 </li>
                                 <li>
@@ -116,24 +153,21 @@ const Navbar = () => {
                                             handleSignOut();
                                             setIsOpen(false);
                                         }}
-                                        className="w-full text-center px-4 py-2 text-red-600 hover:bg-gray-100 rounded-md"
+                                        className="w-full px-4 py-2 text-red-600 hover:bg-base-200 rounded-lg"
                                     >
-                                        <Link to="/login">Logout</Link>
+                                        Logout
                                     </button>
                                 </li>
                             </ul>
                         )}
                     </div>
                 ) : (
-
-                    <div className="pr-2 md:pr-12">
-                        <Link
-                            to="/login"
-                            className="btn bg-green-600 hover:bg-green-700 text-white border-none rounded-xl px-8 py-2 font-semibold"
-                        >
-                            Login
-                        </Link>
-                    </div>
+                    <Link
+                        to="/login"
+                        className="btn btn-success text-white rounded-xl px-6"
+                    >
+                        Login
+                    </Link>
                 )}
             </div>
         </div>

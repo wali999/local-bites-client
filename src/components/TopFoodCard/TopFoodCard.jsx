@@ -2,55 +2,82 @@ import { FaStar, FaMapMarkerAlt, FaUser } from "react-icons/fa";
 import { Link } from "react-router";
 
 const TopFoodCard = ({ review }) => {
-    const { _id, food_description, food_name, photo, restaurant_name, restaurant_location, reviewer_name, rating } = review;
+    const {
+        _id,
+        food_description,
+        food_name,
+        photo,
+        restaurant_name,
+        restaurant_location,
+        reviewer_name,
+        rating,
+    } = review;
 
     const handleTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     return (
-        <div className="max-w-sm bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-            <img
-                src={photo}
-                alt={food_name}
-                className="w-full h-56 object-cover"
-            />
+        <div className="card bg-base-200 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl">
+            {/* Image */}
+            <figure>
+                <img
+                    src={photo}
+                    alt={food_name}
+                    className="h-56 w-full object-cover"
+                />
+            </figure>
 
-            <div className="p-5 space-y-3 text-left">
-                <h2 className="text-xl font-semibold text-gray-800">
+            {/* Body */}
+            <div className="card-body p-4 sm:p-5 text-left">
+                {/* Title */}
+                <h2 className="card-title text-lg sm:text-xl font-semibold">
                     {food_name}
                 </h2>
-                <p className="text-gray-600 text-sm">
+
+                {/* Description */}
+                <p className="text-sm text-base-content/70">
                     {food_description.split(" ").length > 14
-                        ? `${food_description.split(" ").slice(0, 14).join(" ")}...`
+                        ? `${food_description
+                            .split(" ")
+                            .slice(0, 14)
+                            .join(" ")}...`
                         : food_description}
                 </p>
 
-
-                <div className="flex items-center text-sm text-gray-500 mt-2">
-                    <FaMapMarkerAlt className="text-red-500 mr-1" />
-                    <span>{restaurant_name}, {restaurant_location}</span>
+                {/* Location */}
+                <div className="flex items-center gap-2 text-sm text-base-content/70 mt-1">
+                    <FaMapMarkerAlt className="text-error" />
+                    <span>
+                        {restaurant_name}, {restaurant_location}
+                    </span>
                 </div>
 
+                {/* Reviewer & Rating */}
                 <div className="flex justify-between items-center mt-3">
-                    <div className="flex items-center space-x-2 text-gray-700">
-                        <FaUser className="text-green-600" />
-                        <span className="text-sm">{reviewer_name}</span>
+                    <div className="flex items-center gap-2 text-sm">
+                        <FaUser className="text-success" />
+                        <span>{reviewer_name}</span>
                     </div>
 
-                    <div className="flex items-center text-yellow-500">
+                    <div className="flex items-center gap-1 text-warning text-sm font-medium">
                         <FaStar />
-                        <span className="ml-1 font-medium text-gray-700">{rating}</span>
+                        <span>{rating}</span>
                     </div>
                 </div>
 
-
-                <Link onClick={handleTop} to={`/foodCardDetails/${_id}`}>
-                    <button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-medium py-2 rounded-xl transition-colors">
-                        View Details
-                    </button>
-                </Link>
-
+                {/* Action */}
+                <div className="card-actions mt-4">
+                    <Link
+                        onClick={handleTop}
+                        to={`/foodCardDetails/${_id}`}
+                        className="w-full"
+                    >
+                        <button className="btn bg-green-600 w-full rounded-xl">
+                            View Details
+                        </button>
+                    </Link>
+                </div>
             </div>
         </div>
     );

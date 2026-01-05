@@ -31,7 +31,7 @@ const MyFavorite = () => {
 
     return (
         <div className="p-6 min-h-160">
-            <div className='text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-2'>
+            <div className='text-3xl md:text-4xl font-extrabold text-center text-base-content mb-2'>
                 My <span className="text-green-600">Favorite</span>
             </div>
 
@@ -40,7 +40,7 @@ const MyFavorite = () => {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {favorites.map(item => (
-                        <div key={item._id} className="bg-white shadow rounded-xl p-4">
+                        <div key={item._id} className="bg-base-100 shadow-lg rounded-xl p-4">
                             <img src={item.photo} alt={item.food_name} className="w-full h-40 object-cover rounded-lg" />
                             <h3 className="text-lg font-semibold mt-2">{item.food_name}</h3>
                             <p className="text-gray-500">{item.restaurant_name}</p>

@@ -17,6 +17,10 @@ import MyReviews from './pages/MyReviews.jsx';
 import EditReview from './pages/EditReview.jsx';
 import MyFavorite from './pages/MyFavorite.jsx';
 import Loading from './components/Loading/Loading.jsx';
+import FAQ from './pages/FAQ.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import DashboardOverview from './pages/DashboardOverview.jsx';
+import DashboardProfile from './pages/DashboardProfile.jsx';
 
 
 const router = createBrowserRouter([
@@ -34,6 +38,10 @@ const router = createBrowserRouter([
         Component: AllReviews,
         loader: () => fetch('https://local-bites-server.vercel.app/allReviews'),
         hydrateFallbackElement: <Loading></Loading>
+      },
+      {
+        path: "/faq",
+        element: <FAQ></FAQ>
       },
       {
         path: 'foodCardDetails/:id',
@@ -55,12 +63,12 @@ const router = createBrowserRouter([
           <AddReview></AddReview>
         </PrivateRoute>
       },
-      {
-        path: 'myReviews',
-        element: <PrivateRoute>
-          <MyReviews></MyReviews>
-        </PrivateRoute>
-      },
+      // {
+      //   path: 'myReviews',
+      //   element: <PrivateRoute>
+      //     <MyReviews></MyReviews>
+      //   </PrivateRoute>
+      // },
       {
         path: 'editReview/:id',
         element: <PrivateRoute>
@@ -69,12 +77,12 @@ const router = createBrowserRouter([
         loader: ({ params }) => fetch(`https://local-bites-server.vercel.app/allReviews/${params.id}`),
         hydrateFallbackElement: <Loading></Loading>
       },
-      {
-        path: 'myFavorite',
-        element: <PrivateRoute>
-          <MyFavorite></MyFavorite>
-        </PrivateRoute>
-      },
+      // {
+      //   path: 'myFavorite',
+      //   element: <PrivateRoute>
+      //     <MyFavorite></MyFavorite>
+      //   </PrivateRoute>
+      // },
 
       {
         path: '/*',
@@ -82,6 +90,36 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <DashboardOverview />,
+      },
+      {
+        path: "overview",
+        element: <DashboardOverview />,
+      },
+      {
+        path: "profile",
+        element: <DashboardProfile />,
+      },
+      {
+        path: "my-reviews",
+        element: <MyReviews />,
+      },
+      {
+        path: "my-favorite",
+        element: <MyFavorite />,
+      },
+    ],
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(
